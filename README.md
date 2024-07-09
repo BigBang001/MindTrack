@@ -25,15 +25,72 @@ The main objectives behind developing MindTrack are as follows:
 - **Backend:** Django (Python), MySQL
 - **Frontend:** React.js (JavaScript)
 - **AI:** TensorFlow for sentiment analysis
-- **Deployment:** Docker, AWS (Amazon Web Services)
+- **Deployment:** Docker, Azure Kubernetes Service (AKS)
 
-### Additional Resources
+### Azure Deployment
 
-To enhance the functionality of MindTrack, consider the following:
+1. **Create Azure Resources**:
+   
+   - **Container Registry**: Create an Azure Container Registry (ACR) to store your Docker images.
+   - **Kubernetes Cluster**: Create an Azure Kubernetes Service (AKS) cluster to host and manage your containerized application.
 
-- **Data Collection:** Regularly gather and review user feedback to improve the system.
-- **Model Training:** Continuously train and refine the AI model for better accuracy.
-- **User Support:** Provide resources and support for users to understand and utilize MindTrack effectively.
+2. **Push Docker Images to ACR**:
+   
+   - Build your Docker images locally and push them to your ACR:
+     ```bash
+     docker build -t your-acr-name.azurecr.io/mindtrack-backend ./mindtrack-backend
+     docker push your-acr-name.azurecr.io/mindtrack-backend
+
+     docker build -t your-acr-name.azurecr.io/mindtrack-frontend ./mindtrack-frontend
+     docker push your-acr-name.azurecr.io/mindtrack-frontend
+     ```
+
+3. **Deploy to AKS**:
+   
+   - Deploy your application to AKS using Kubernetes manifests (`deployment.yaml`, `service.yaml`). Ensure to update these files with your ACR details.
+   - Example `deployment.yaml` for backend:
+     ```yaml
+     apiVersion: apps/v1
+     kind: Deployment
+     metadata:
+       name: mindtrack-backend
+     spec:
+       replicas: 1
+       selector:
+         matchLabels:
+           app: mindtrack-backend
+       template:
+         metadata:
+           labels:
+             app: mindtrack-backend
+         spec:
+           containers:
+             - name: mindtrack-backend
+               image: your-acr-name.azurecr.io/mindtrack-backend:latest
+               ports:
+                 - containerPort: 8000
+     ```
+   - Example `service.yaml` for backend:
+     ```yaml
+     apiVersion: v1
+     kind: Service
+     metadata:
+       name: mindtrack-backend-service
+     spec:
+       selector:
+         app: mindtrack-backend
+       ports:
+         - protocol: TCP
+           port: 80
+           targetPort: 8000
+       type: LoadBalancer
+     ```
+   - Apply these manifests:
+     ```bash
+     kubectl apply -f deployment.yaml
+     kubectl apply -f service.yaml
+     ```
+
 
 ### How to Use
 
