@@ -1,4 +1,4 @@
-<h2 align="center">Mental Health Tracking Application</h2>
+<h2 align="center">Mental Health Tracking Application (MindTrack)</h2>
 
 <p align="center">
   <em>It is a web application designed to facilitate easy and convenient tracking of daily mood and mental health symptoms. Utilizing AI and a user-friendly interface, MindTrack aims to provide comprehensive mental health monitoring for users with ADHD and other neuro-divergences.</em>
