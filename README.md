@@ -18,7 +18,7 @@ The main objectives behind developing MindTrack are as follows:
 - **Daily Surveys:** Receive a survey link via text message each day to track mood, symptoms, weight, hours of sleep, and thoughts.
 - **Sentiment Analysis:** Uses a TensorFlow model to analyze and provide feedback on user input.
 - **Future Features:** Home page, account creation/login, medication tracking, and a user dashboard for visualizing trends.
-- **User-Friendly Design:** Designed to be easy to use, even for individuals with ADHD or other neuro-divergences.<br>
+- **User-Friendly Design:** Designed to be easy to use, even for individuals with Depression or any other mental health issues.<br>
 
 ### Technical Details
 
